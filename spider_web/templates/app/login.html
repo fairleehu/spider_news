@@ -1,0 +1,83 @@
+{% extends 'base.html' %}
+
+    {% load staticfiles %}
+ 
+ {% block body_block %}
+ 
+             
+			
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+
+<div class="container">
+
+{% if user.is_authenticated %}
+	<div class="hero-unit">
+  		<h3>{{user.username}}, 欢迎您</h3>
+		<a class="brand" href="{% url 'personal' %}"><h4>个人主页</h4></a>
+  		<p>
+   		 <a class="btn btn-primary btn-large" href="{% url 'base' %}">
+      			返回首页
+   		 </a>
+  		</p>
+	</div>
+
+{% else %}
+	<div class="hero-unit">
+  <form class="form-horizontal" id="user_login" method="post" action="{% url 'login' %}" enctype="multipart/form-data">
+{% csrf_token %}
+  <fieldset>
+    <legend>用户登录</legend>
+    <div class="control-group" align="center">
+     
+      <!-- <div class="controls"> -->
+      <div>
+      <span style="font-size:18px">用户名: </span>
+      <!-- <label class="control-label" for="input01" ><h4>用户名:</h4></label> -->
+        <input type="text" class="input-xlarge" id="input01" name="username">
+        
+       
+      </div>
+    </div>
+    <div class="control-group" align="center">
+      
+      <!-- <div class="controls"> -->
+      <div>
+      <!-- <label class="control-label" for="input01"><h4>密码:</h4></label> -->
+      <span style="font-size:18px">密&nbsp&nbsp&nbsp码: </span>
+        <input type="password" class="input-xlarge" id="input01" name="password">
+      
+      </div>
+    </div>
+
+      <div class="control-group" align="center"> 
+          <button type="submit"  class="btn btn-success">确认</button>
+          
+      </div>
+  {% endif %}  
+       
+       {% if errors %}
+       <div class="alert alert-error">
+        {% for error in errors %}
+        <strong>{{error}}</strong>
+     {% endfor %}
+        
+      </div>
+      {% endif %}
+
+      </fieldset>
+      </form>
+</div>
+
+    <footer>
+        <p>&copy; <strong>fairleehu</strong></p>
+      </footer>
+
+    </div> 
+ 
+
+{% endblock %}

@@ -1,0 +1,161 @@
+{% extends 'base.html' %}
+
+    {% load staticfiles %}
+ 
+ {% block body_block %}
+ 
+             <!--判断用户是否登陆-->
+              <!--{% if user.is_authenticated %}
+           
+
+            <form class="navbar-form pull-right" method="post" action="{% url 'logout' %}">
+                {% csrf_token %}
+                <strong>{{user.username}}</strong>
+                <button type="submit" class="btn btn-danger">退出</button>
+                </form>
+              
+             {% else %}
+                  
+                {% if errors %}
+                    {% for error in errors %}-->
+                   <!--登陆错误信息-->
+                   <!-- <span class="label label-warning">{{error}}</span>-->
+                   <!--#########   bug     ############-->           
+                   <!--{% endfor %}
+                {% endif %}
+            
+             {% endif %}-->
+
+
+        <!--没有登陆重新登陆-->
+                    <!--<form class="navbar-form pull-right" method="post" action="{% url 'login' %}">
+                         {% csrf_token %}
+                       <input type="text" name="username" class="input-small" placeholder="用户名">
+                       <input type="password" name="password" class="input-small" placeholder="密码">
+                    
+                       <button type="submit"  class="btn btn-success">登录</button>
+                    
+                         <a class="btn btn-primary" href="{% url 'register' %}">注册</a>
+                    </form>-->
+            
+          </div><!--/.nav-collapse -->
+        </div><!--/container-->
+      </div>
+    </div>
+
+
+
+<div class="container">
+{% if registered %}
+
+<div class="hero-unit">
+  <h1>恭喜，已注册!</h1>
+  <p>感谢您的加入！</p>
+  <p>
+    <a class="btn btn-primary btn-large" href="{% url 'index' %}">
+      返回首页
+    </a>
+  </p>
+</div>
+
+
+  {% else %}
+    <div class="row">
+
+    <div class="span4">
+         <a href="#" class="thumbnail">
+         <img src="{% static "images/yoyo.gif" %}" alt="test">
+        <!--  {% if picture %}
+    {% for img in picture %}
+      <img src="{{img.picture}}"><br/>
+    {% endfor %}
+  {% endif %}--><!--新闻图片-->
+        </a>
+       </div><!--span4-->     
+
+     
+
+    <div class="span8">
+    
+<form class="form-horizontal" id="user_register" method="post" action="{% url 'register' %}" enctype="multipart/form-data">
+{% csrf_token %}
+  <fieldset>
+    <legend>用户注册</legend>
+    <div class="control-group" align="center">
+     
+      <div class="controls">
+      <!-- <label class="control-label" for="input01"><h4>用户名:</h4></label> -->
+        <span style="font-size:18px">用户名: &nbsp &nbsp</span>
+        <!--<input type="text" class="input-xlarge" id="input01">-->
+        {{user_form.username}}
+        <p class="help-block">暂时不支持中文。。。</p>
+      </div>
+    </div>
+    <div class="control-group" align="center">
+      
+      <div class="controls">
+       <span style="font-size:18px">密 &nbsp 码: &nbsp &nbsp</span>
+      <!-- <label class="control-label" for="input01"><h4>密码:</h4></label> -->
+        <!--<input type="text" class="input-xlarge" id="input01">-->
+        {{user_form.password}}
+        <p class="help-block">最少6位字母或数字</p>
+      </div>
+    </div>
+
+     <div class="control-group" align="center">
+      
+      <div class="controls">
+      <span style="font-size:18px">邮 &nbsp 箱: &nbsp &nbsp</span>
+      <!-- <label class="control-label" for="input01"><h4>邮箱:</h4></label> -->
+        <!--<input type="text" class="input-xlarge" id="input01">-->
+        {{user_form.email}}
+        <p class="help-block">请输入您的邮箱，以便我们收录</p>
+      </div>
+    </div>
+
+    <div class="control-group" align="center">
+           
+            <div class="controls">
+            <span style="font-size:18px">头 &nbsp 像:&nbsp&nbsp</span>
+             <!-- <label class="control-label" for="fileInput"><h4>上传头像:</h4></label> -->
+             {{profile_form.userImage}}
+              <!--<input class="input-file" id="fileInput" type="file">-->
+            </div>
+          </div>
+          <br/>
+
+      <div class="control-group" align="center"> 
+          &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+          &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+          &nbsp&nbsp&nbsp&nbsp<button type="submit"  class="btn btn-success">确认</button>
+          
+      </div>
+      {% endif %}
+       
+       {% if errors %}
+       <div class="alert alert-error">
+        {% for error in errors %}
+        <strong>{{error}}</strong>
+     {% endfor %}
+        
+      </div>
+      {% endif %}
+
+      </fieldset>
+      </form>
+
+      </div><!--span8-->
+
+      
+       </div><!--row-->
+
+      <hr>
+
+    <footer>
+        <p>&copy; <strong>fairleehu</strong></p>
+      </footer>
+
+    </div> <!-- /container -->
+ 
+
+{% endblock %}

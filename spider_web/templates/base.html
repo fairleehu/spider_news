@@ -1,0 +1,78 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>明日头条</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <!-- Le styles -->
+    <link href="{% static "assets/css/bootstrap.css" %}" rel="stylesheet">
+    <style type="text/css">
+      body {
+        padding-top: 60px;
+        padding-bottom: 40px;
+      }
+        a:link {
+text-decoration: none;
+}
+a:visited {
+text-decoration: none;
+}
+a:hover {
+text-decoration: none;
+}
+a:active {
+text-decoration: none;
+}
+
+    </style>
+    <link href="{% static "assets/css/bootstrap-responsive.css" %}" rel="stylesheet">
+
+
+    <link rel="shortcut icon" href="{% static "assets/ico/favicon.ico" %}">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="{% static "assets/ico/apple-touch-icon-114-precomposed.png" %}">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="{% static "assets/ico/apple-touch-icon-72-precomposed.png" %}">
+    <link rel="apple-touch-icon-precomposed" href="{% static "assets/ico/apple-touch-icon-57-precomposed.png" %}">
+  </head>
+
+  <body>
+
+    <div class="navbar navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container">
+          <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </a>
+          <a class="brand" href="{% url 'index' %}">明日头条</a>
+          <div class="nav-collapse">
+            <ul class="nav">
+              <li class="active"><a href="{% url 'index' %}">首页</a></li><!--href填空值返回本页面-->
+              <li><a href="{% url 'about' %}">关于</a></li>
+              <li><a href="{% url 'contact' %}">联系</a></li>
+            </ul>
+ 
+        {% block body_block %}{% endblock %}
+
+    <script src="{% static "assets/js/jquery.js" %}"></script>
+    <script src="{% static "assets/js/jquery.min.js" %}"></script>
+    <script src="{% static "assets/js/bootstrap-transition.js" %}"></script>
+    <script src="{% static "assets/js/bootstrap-alert.js" %}"></script>
+    <script src="{% static "assets/js/bootstrap-modal.js" %}"></script>
+    <script src="{% static "assets/js/bootstrap-dropdown.js" %}"></script>
+    <script src="{% static "assets/js/bootstrap-scrollspy.js" %}"></script>
+    <script src="{% static "assets/js/bootstrap-tab.js" %}"></script>
+    <script src="{% static "assets/js/bootstrap-tooltip.js" %}"></script>
+    <script src="{% static "assets/js/bootstrap-popover.js" %}"></script>
+    <script src="{% static "assets/js/bootstrap-button.js" %}"></script>
+    <script src="{% static "assets/js/bootstrap-collapse.js" %}"></script>
+    <script src="{% static "assets/js/bootstrap-carousel.js" %}"></script>
+    <script src="{% static "assets/js/bootstrap-typeahead.js" %}"></script>
+
+  </body>
+</html>
+

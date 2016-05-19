@@ -1,0 +1,123 @@
+ {% extends 'base.html' %}
+
+    {% load staticfiles %}
+ 
+ {% block body_block %}
+ 
+             <!--判断用户是否登陆-->
+              {% if user.is_authenticated %}
+           
+
+            <form class="navbar-form pull-right" method="post" action="{% url 'logout' %}">
+              	{% csrf_token %}
+               <a href="{% url 'personal' %}"><strong>{{user.username}}</strong>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</a>
+              	<button type="submit" class="btn btn-danger">退出</button>
+       			</form>
+              
+              {% else %}
+			      
+            {% if errors %}
+              {% for error in errors %}
+                <!--登陆错误信息-->
+                <span class="label label-warning">{{error}}</span>
+                <!--#########   bug     ############           -->
+             {% endfor %}
+            {% endif %}
+
+        <!--没有登陆重新登陆-->
+				    <form class="navbar-form pull-right" method="post" action="{% url 'login' %}">
+					     {% csrf_token %}
+  					   
+  					
+  					   <a class="btn btn-success" href="{% url 'login' %}">登录</a>
+               <a class="btn btn-primary" href="{% url 'register' %}">注册</a>
+				    </form>
+			
+			       {% endif %}
+          </div><!--/.nav-collapse -->
+
+
+        </div><!--/container-->
+
+      </div>
+    </div>
+
+
+  <div class="container">
+    <div class="row">
+    <div class="span8">
+      <!-- <div class="hero-unit"> -->
+        <h2 ><font color="purple">{{ news.newsTitle }}</font></h2> 
+        <p>{{ news.newsTime }}</p>
+        <p> <font size="4" style="line-height:30px;">
+          <pre word-wrap: break-word>{{ news.newsContent }}</pre></font>
+        </p>
+      <!-- </div> -->
+      </div><!--span9-->
+       {% if picture %}
+      <div class="span4">
+         <a href="#" class="thumbnail">
+         <!-- <img src="{% static "images/jay.jpg" %}" alt="test"> -->
+         
+    {% for img in picture %}
+      <img src="{{img.picture}}"><br/>
+    {% endfor %}
+  
+        </a>
+       </div><!--span3 -->
+{% endif %}
+      </div><!--row-->
+      
+      <hr>
+
+    {% if comment %}   
+      <div class="table-responsive">
+   <table class="table table-striped table-bordered table-hover">
+      <caption><h2><strong>网友评论：</strong>  </h2></caption>
+      <thead>
+         <tr>
+            <th>用户</th>
+            <th>时间</th>
+            <th>评论</th>
+         </tr>
+      </thead>
+      <tbody>
+      {% for com in comment %}
+         <tr>
+            <td>{{ com.username }}</td>
+            <td>{{com.content_time}}</td>
+            <td>{{com.content}}</td>
+         </tr>
+       {% endfor %}  
+      </tbody>
+   </table>
+</div>
+ {% endif %}   
+
+
+  
+  {% if user.is_authenticated %}
+
+<form role="form" id="comment" method="post" action="{% url 'comment' user.id news.id%}">
+{% csrf_token %}
+  <div class="form-group">
+    <label for="name">添加评论</label>
+    <textarea class="form-control"   cols="40"  rows="8"   name="content"></textarea><br/>
+    <button type="submit"  class="btn btn-success">提交</button>
+  </div>
+</form>
+
+{% else %}
+<a class="btn btn-primary" href="{% url 'login' %}">登陆后才能评论呦！！！～～～</a>
+  {% endif %}
+
+
+
+
+    <footer>
+        <p>&copy; <strong>fairleehu</strong></p>
+      </footer>
+
+    </div> <!-- /container -->
+
+    {% endblock %}

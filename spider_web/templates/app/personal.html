@@ -1,0 +1,108 @@
+{% extends 'base.html' %}
+
+    {% load staticfiles %}
+ 
+ {% block body_block %}
+
+ 
+             <!--判断用户是否登陆-->
+              {% if user.is_authenticated %}
+           
+
+            <form class="navbar-form pull-right" method="post" action="{% url 'logout' %}">
+              	{% csrf_token %}
+                <a href="{% url 'personal' %}"><strong>{{user.username}}</strong>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</a>
+              	<button type="submit" class="btn btn-danger">退出</button>
+       			</form>
+              
+             {% else %}
+			      
+                {% if errors %}
+                    {% for error in errors %}
+                   <!--登陆错误信息-->
+                    <span class="label label-warning">{{error}}</span>
+                   <!--#########   bug     ############-->           
+                   {% endfor %}
+                      {% endif %}
+            
+        <!--没有登陆重新登陆-->
+				    <form class="navbar-form pull-right" method="post" action="{% url 'login' %}">
+					     {% csrf_token %}
+  					  <!-- <input type="text" name="username" class="input-small" placeholder="用户名">
+  					   <input type="password" name="password" class="input-small" placeholder="密码">
+  					
+  					   <button type="submit"  class="btn btn-success">登录</button>-->
+  					   <a class="btn btn-success" href="{% url 'login' %}">登录</a>
+   						 <a class="btn btn-primary" href="{% url 'register' %}">注册</a>
+				    </form>
+			
+			       {% endif %}
+          </div><!--/.nav-collapse -->
+        </div><!--/container-->
+      </div>
+    </div>
+
+
+ <div class="container">
+
+      <!-- Example row of columns -->
+      
+     
+      <!--  新闻 1-->
+      <div class="row">
+
+      <div class="span3">
+         <a href="#" class="thumbnail">
+         <!--<img src="{% static "images/jay.jpg" %}" alt="test">-->
+         <img src="{{ userImage }}" alt="头像">   <!-- 头像 -->
+        </a>
+       </div><!--span3-->     
+
+
+
+        <div class="span9">
+          <h2>个人主页</h2>
+          <p><h3>{{user.username}}  欢迎回家</h3>
+         
+          <a class="btn btn-warning" href="{% url 'modifyPassword' %}">修改密码</a>
+          </p>
+         
+          
+
+{% if  news_list %}
+          <div class="table-responsive">
+   <table class="table table-striped table-bordered table-hover">
+      <caption><h2><strong>评论过的新闻</strong></h2></caption>
+      <thead>
+         <tr>
+            
+            <th>新闻标题</th>
+         </tr>
+      </thead>
+      <tbody>
+    {% for  news in news_list %}
+         <tr>
+            <td><strong><a href="{{news.url}}">{{news.title}}</a></strong></td>
+           
+         </tr>
+       {% endfor %}  
+      </tbody>
+   </table>
+</div>
+     {% endif %}
+
+        </div><!--span9-->
+       
+      </div><!--row-->
+      <hr>
+      
+
+      <footer>
+        <p>&copy; <strong>fairleehu</strong></p>
+      </footer>
+
+    </div> <!-- /container -->
+
+
+
+    {% endblock %}
